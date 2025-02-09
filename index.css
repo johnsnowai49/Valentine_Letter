@@ -1,22 +1,38 @@
-body {
+.body {
+    margin: 0 auto;
+    padding: 0;
+    max-width: 800px; /* Limit the viewport width */
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+}
+
+.container {
+    position: relative;
+    width: 100%;
+    max-width: 900px; /* 限制最大寬度 */
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
 }
 
 .envelope-wrapper {
-    height: 600px;
-}
-
-#envelope {
+    font-size: 16px;
     position: relative;
-    height: 350px;
-    width: 700px;
+    max-width: 900px; /* 限制最大寬度 */
+    width: 72vw;
+    height: 48vh;
+    display: inline-flex;
+    justify-content: center; /* 讓元素水平置中 */
+    align-items: center; /* 讓元素垂直置中 */
     border-bottom-left-radius: 6px;
     border-bottom-right-radius: 6px;
-    margin-left: auto;
-    margin-right: auto;
-    top: 50%;
     background-color: #FF6863;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    margin: 0 auto;
+    padding: 0 auto;
 }
+
 
 #envelope:hover {
     cursor: pointer;
@@ -30,35 +46,36 @@ body {
 }
 
 .flap {
-    border-top: 175px solid #FF6863;
-    border-left: 350px solid transparent;
-    border-right: 350px solid transparent;
-    border-bottom: 175px solid transparent;
+    border-left: min(36vw, 450px) solid transparent;
+    border-right: min(36vw, 450px) solid transparent;
+    border-top: min(24vh, 300px) solid #FF6863;
+    border-bottom: min(24vh, 300px) solid transparent;
     transform-origin: top;
 }
 
 .pocket {
-    border-left: 350px solid #FF8BA0;
-    border-right: 350px solid #FF8BA0;
-    border-bottom: 175px solid #FFA8B5;
-    border-top: 175px solid transparent;
+    border-left: min(36vw, 450px) solid #FF8BA0;
+    border-right: min(36vw, 450px) solid #FF8BA0;
+    border-bottom: min(24vh, 300px) solid #FFA8B5;
+    border-top: min(24vh, 300px) solid transparent;
     border-bottom-left-radius: 6px;
     border-bottom-right-radius: 6px;
 }
 
-.letter {
-    position: relative;
+.letter1 {
+    position: absolute;
     background-color: #FFF5EB;
-    width: 90%;
-    height: 95%;
-    top: 5%;
+    width: 70vw;
+    height: 40vh;
+    max-width: 880px; /* 限制最大寬度 */
     border-radius: 10px;
     box-shadow: 0 2px 26px rgba(0, 0, 0, .12);
     margin-left: auto;
     margin-right: auto;
+    margin-top: 5px;
 }
 
-.letter:after {
+.letter1:after {
     content: "";
     position: absolute;
     top: 0;
@@ -67,57 +84,98 @@ body {
     right: 0;
 }
 
-.words {
+.letter2 {
+    max-width: 880px; /* 限制最大寬度 */
     position: absolute;
-    left: 10%;
-    width: 80%;
-    height: 14%;
-    font-size: 15px;
+    background-color: #FFF5EB;
+    display: flex;
+    flex-direction: row;
+    width: 70vw;
+    border-radius: 10px;
+    box-shadow: 0 2px 26px rgba(0, 0, 0, .12);
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5px;
+}
+
+.letter2:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+
+.words {
+    padding: 2em;
+    font-size: 1em;
     font-family: "Charm", serif;
-    font-weight: 400;
     font-style: normal;
     color: black;
 }
 
-.line1 {
-    top: 15%;
-}
-.line2 {
-    top: 30%;
-}
-.line3 {
-    top: 50%;
-    text-align: center;
-}
-.line4 {
-    top: 65%;
-    text-align: center;
-}
 
-.open .flap {
-    transform: rotatex(180deg);
-    transition: transform 0.4s ease, z-index 0.6s;
-    z-index: 1;
-}
 
-.close .flap {
+.state-0 .flap {
     transform: rotatex(0deg);
     transition: transform 0.4s 0.6s ease, z-index 1s;
     z-index: 5;
 }
 
-.open .letter {
-    transform: translatey(-280px);
-    transition: transform 0.4s 0.6s ease, z-index 0.6s;
-    z-index: 2;
+.state-1 .flap {
+    transform: rotatex(180deg);
+    transition: transform 0.4s ease, z-index 0.6s;
+    z-index: 0;
 }
 
-.close .letter {
+.state-2 .flap {
+    transform: rotatex(180deg);
+    transition: transform 0.4s ease, z-index 0.6s;
+    z-index: 0;
+}
+
+
+/* letter1 */
+.state-0 .letter1 {
     transform: translatey(0deg);
     transition: transform 0.4s ease, z-index 1s;
     z-index: 1;
 }
 
+.state-1 .letter1 {
+    transform: translatey(-30vh);
+    transition: transform 0.4s 0.6s ease, z-index 0.6s;
+    z-index: 2;
+}
+
+.state-2 .letter1 {
+    transform: translatey(0deg);
+    transition: transform 0.4s ease, z-index 1s;
+    z-index: 1;
+}
+
+/* letter2 */
+.state-0 .letter2 {
+    transform: translatey(0deg);
+    transition: transform 0.4s ease, z-index 1s;
+    z-index: 0;
+}
+
+.state-1 .letter2 {
+    transform: translatey(0deg);
+    transition: transform 0.4s ease, z-index 1s;
+    z-index: 0;
+}
+
+.state-2 .letter2 {
+    transform: translatey(-30vh);
+    transition: transform 0.4s 0.6s ease, z-index 0.6s;
+    z-index: 0;
+}
+
+/* heart */
 .hearts {
     position: absolute;
     top: 90px;
@@ -151,7 +209,7 @@ body {
     transform-origin: 100% 100%;
 }
 
-.close .heart {
+.state-0 .heart {
     opacity: 0;
     animation: none;
 }
@@ -185,15 +243,15 @@ body {
 .a1 {
     left: 20%;
     transform: scale(0.6);
-    opacity: 1;
+    opacity: 0.6;
     animation: slideUp 4s linear 1, sideSway 2s  ease-in-out 4 alternate;
     animation-fill-mode: forwards;
     animation-delay: 0.7s;
 }
 .a2 {
-    left: 55%;
+    left: 30%;
     transform: scale(1);
-    opacity: 1;
+    opacity: 0.8;
     animation: slideUp 5s linear 1, sideSway 4s  ease-in-out 2 alternate;
     animation-fill-mode: forwards;
     animation-delay: 0.7s;
@@ -202,13 +260,13 @@ body {
     left: 10%;
     transform: scale(0.8);
     opacity: 1;
-    animation: slideUp 7s linear 1, sideSway 2s  ease-in-out 6 alternate;
-    animation-fill-mode: forwards;
+    animation: slideUp 7s linear 1, sideSway 2s  ease-in-out 1 alternate;
+    animation-fill-mode: both;
     animation-delay: 0.7s;
 }
 .a4 {
-    left: 70%;
-    transform: scale(1.2);
+    left: 50%;
+    transform: scale(0.7);
     opacity: 1;
     animation: slideUp 7s linear 1, sideSway 6s  ease-in-out 6 alternate;
     animation-fill-mode: forwards;
@@ -217,9 +275,9 @@ body {
 .a5 {
     left: 60%;
     transform: scale(0.7);
-    opacity: 1;
+    opacity: 0.8;
     animation: slideUp 7s linear 1, sideSway 5s  ease-in-out 6 alternate;
-    animation-fill-mode: forwards;
+    animation-fill-mode: both;
     animation-delay: 0.8s;
 }
 
@@ -241,40 +299,60 @@ body {
     }
 }
 
-.reset {
-    text-align: center;
+@media (max-width: 768px) {
+    /* .envelope-wrapper {
+        font-size: 10px;
+        height: 400px;
+        width: 600px;
+    } */
+    .envelope-wrapper {
+        font-size: 12px;
+    }
+    /* .flap {
+        border-top: 200px solid #FF6863;
+        border-left: 300px solid transparent;
+        border-right: 300px solid transparent;
+        border-bottom: 200px solid transparent;
+    }
+    .pocket {
+        border-left: 300px solid #FF8BA0;
+        border-right: 300px solid #FF8BA0;
+        border-bottom: 200px solid #FFA8B5;
+        border-top: 200px solid transparent;
+    } */
+}
+@media (max-width: 375px) {
+    .envelope-wrapper {
+        font-size: 10px;
+    }
+    /* .flap {
+        border-top: 100px solid #FF6863;
+        border-left: 150px solid transparent;
+        border-right: 150px solid transparent;
+        border-bottom: 100px solid transparent;
+    }
+    .pocket {
+        border-left: 150px solid #FF8BA0;
+        border-right: 150px solid #FF8BA0;
+        border-bottom: 100px solid #FFA8B5;
+        border-top: 100px solid transparent;
+    } */
 }
 
-.reset button {
-    font-weight: 800;
-    font-style: normal;
-    transition: all 0.1s linear;
-    background-color: transparent;
-    border: solid 2px #FF6863;
-    border-radius: 4px;
-    color: #FF6863;
-    display: inline-block;
-    font-size: 14px;
-    text-transform: uppercase;
-    margin: 20px;
-    margin-top: 100px;
-    padding: 10px;
-    line-height: 2em;
-    text-decoration: none;
-    min-width: 150px;
-    outline: none;
+.photo-frame {
+    display: inline-block; /* 讓框架適應圖片大小 */
+    padding-top: 10px; /* 白邊框的厚度 */
+    padding-left: 10px; /* 白邊框的厚度 */
+    padding-right: 10px; /* 白邊框的厚度 */
+    padding-bottom: 20px; /* 白邊框的厚度 */
+    background-color: white; /* 白色邊框 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 模擬相片的陰影 */
+    margin: 10px; /* 和其他元素的間距 */
 }
 
-.reset button:hover {
-    background-color: #FF6863;
-    cursor: pointer;
-    color: white;
-}
-
-.valentine {
-    text-align: center;
-    font-family: Arial, Helvetica, sans-serif;
-    color:rgb(20, 20, 20);
-    font-size: 70px;
-    margin: 150px;
+.photo-frame img {
+    display: block; /* 移除圖片預設的間距 */
+    width: 100%; /* 讓圖片自適應框架大小 */
+    height: auto; /* 保持圖片比例 */
+    max-height: 400px;
 }
