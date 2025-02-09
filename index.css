@@ -1,14 +1,14 @@
-.body {
+
+
+body {
     margin: 0 auto;
     padding: 0;
-    max-width: 800px; /* Limit the viewport width */
     overflow-x: hidden; /* Prevent horizontal scrolling */
 }
 
 .container {
     position: relative;
-    width: 100%;
-    max-width: 900px; /* 限制最大寬度 */
+    width: 100vw;
     height: 100vh;
     display: flex;
     justify-content: center;
@@ -19,7 +19,8 @@
 .envelope-wrapper {
     font-size: 16px;
     position: relative;
-    max-width: 900px; /* 限制最大寬度 */
+    max-width: 900px; 
+    max-height: 600px; 
     width: 72vw;
     height: 48vh;
     display: inline-flex;
@@ -30,12 +31,6 @@
     background-color: #FF6863;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
     margin: 0 auto;
-    padding: 0 auto;
-}
-
-
-#envelope:hover {
-    cursor: pointer;
 }
 
 .front {
@@ -300,13 +295,8 @@
 }
 
 @media (max-width: 768px) {
-    /* .envelope-wrapper {
-        font-size: 10px;
-        height: 400px;
-        width: 600px;
-    } */
     .envelope-wrapper {
-        font-size: 12px;
+        font-size: 14px;
     }
     /* .flap {
         border-top: 200px solid #FF6863;
@@ -322,9 +312,7 @@
     } */
 }
 @media (max-width: 375px) {
-    .envelope-wrapper {
-        font-size: 10px;
-    }
+    
     /* .flap {
         border-top: 100px solid #FF6863;
         border-left: 150px solid transparent;
@@ -355,4 +343,57 @@
     width: 100%; /* 讓圖片自適應框架大小 */
     height: auto; /* 保持圖片比例 */
     max-height: 400px;
+}
+
+/* heart-btn */
+.button{
+	width: 50px;
+	height: 50px;
+  top:50%;
+  position: fixed;
+	left: 50%;
+	margin-top: -45px;
+	margin-left: -50px;
+	border-radius: 5px;
+	background: none;
+	cursor: pointer;
+	transition: background 0.5s ease;
+    z-index: 8;
+
+}
+.button:hover{
+    &:before {
+        background: rgb(255, 79, 79) !important;
+    }
+    &:after {
+        background: rgb(255, 79, 79) !important;
+    }
+}
+.active#heart-btn:before,.active#heart-btn:after{
+	background: red !important;
+}
+#heart-btn {
+    width: 100px;
+    height: 90px;
+    transition: background 0.5s ease;
+    z-index: 8;
+}
+#heart-btn:before,
+#heart-btn:after {
+	transition: background 0.5s ease;
+    position: absolute;
+    content: "";
+    left: 50px;
+    top: 0;
+    width: 50px;
+    height: 80px;
+    background: dimgrey;
+    border-radius: 50px 50px 0 0;
+    transform: rotate(-45deg);
+    transform-origin: 0 100%;
+}
+#heart-btn:after {
+    left: 0;
+    transform: rotate(45deg);
+    transform-origin :100% 100%;
 }

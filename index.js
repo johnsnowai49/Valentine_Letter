@@ -1,31 +1,83 @@
 $(document).ready(function() {
     var envelope = $("#envelope");
-    var btn_open = $("#open");
-    var btn_reset = $("#reset");
+    // var heart_btn = $("#heart-btn");
     var envelope_states = ['state-0', 'state-1', 'state-2'];
     var envelope_state = 0
-    envelope.click(function() {
-        next_state();
-    });
-    btn_open.click(function() {
-        next_state();
-    });
-    btn_reset.click(function() {
-        close();
-    });
+    // envelope.click(function() {
+    //     next_state();
+    // });
+   
+    
     function next_state() {
         envelope.removeClass(envelope_states[envelope_state]);
         envelope_state = (envelope_state + 1 ) % envelope_states.length;
         envelope.addClass(envelope_states[envelope_state]);
     }
-    function open() {
-        envelope.addClass("open")
-            .removeClass("close");
-    }
+   
+    // heart_btn.click(function() {
+    //     heart_btn.classList.toggle('liked');
+    // });
 
-    function close() {
-        envelope.addClass("close")
-            .removeClass("open");
-    }
+    var scaleCurve = mojs.easing.path('M0,100 L25,99.9999983 C26.2328835,75.0708847 19.7847843,0 100,0');
+        var el = document.querySelector('.button'),
+        // mo.js timeline obj
+        timeline = new mojs.Timeline(),
 
-})
+        // tweens for the animation:
+
+        // burst animation
+        tween1 = new mojs.Burst({
+            parent: el,
+        radius:   { 0: 100 },
+        angle:    { 0: 45 },
+        y: -10,
+        count:    10,
+        radius:       100,
+        children: {
+        shape:        'circle',
+        radius:       30,
+        fill:         [ 'red', 'white' ],
+        strokeWidth:  15,
+        duration:     500,
+        }
+        });
+
+
+        tween2 = new mojs.Tween({
+            duration : 900,
+            onUpdate: function(progress) {
+                var scaleProgress = scaleCurve(progress);
+                el.style.WebkitTransform = el.style.transform = 'scale3d(' + scaleProgress + ',' + scaleProgress + ',1)';
+            }
+        });
+                tween3 = new mojs.Burst({
+            parent: el,
+        radius:   { 0: 100 },
+        angle:    { 0: -45 },
+        y: -10,
+        count:    10,
+        radius:       125,
+        children: {
+        shape:        'circle',
+        radius:       30,
+        fill:         [ 'white', 'red' ],
+        strokeWidth:  15,
+        duration:     400,
+        }
+        });
+
+    // add tweens to timeline:
+    timeline.add(tween1, tween2, tween3);
+
+
+    // when clicking the button start the timeline/animation:
+    $( ".button" ).click(function() {
+        if (envelope_state === 0) {
+            timeline.play();
+            $(this).addClass('active');
+        } else if (envelope_state === 2) {
+            $(this).removeClass('active');
+        }
+        next_state();
+    });
+});
